@@ -1,0 +1,103 @@
+Part C.
+You should write your homework in a file called hw2.txt. Submit your homework via git as described in the last question. Put your git link in the homework.
+
+Create a new git repository somewhere in your filesystem, and configure a remote (called whatever you want
+
+knd-ssekar-ml:~ ssekar$ cd homework
+knd-ssekar-ml:homework ssekar$ git init
+Initialized empty Git repository in /Users/ssekar/homework/.git/
+knd-ssekar-ml:homework ssekar$ git remote add origin https://github.com/SaranyaSekar0188/homework.git
+knd-ssekar-ml:homework ssekar$ git remote -v
+origin	https://github.com/SaranyaSekar0188/homework.git (fetch)
+origin	https://github.com/SaranyaSekar0188/homework.git (push)
+
+1) What command did you use to configure the remote?
+
+git remote add <HTTPS URL>
+Git remote add origin https://github.com/SaranyaSekar0188/homework.git
+
+
+2) Instead of creating a new git repository and configuring it with this remote, I could have asked you to git clone the repo from afs. If you had done so, what would the output of git remote -v be?
+
+Eg git remote -v output for configuring remote repo using git remote add :  
+-----------------------------------------------
+
+
+knd-ssekar-ml:~ ssekar$ mkdir homework2
+knd-ssekar-ml:~ ssekar$ cd homework2
+knd-ssekar-ml:homework2 ssekar$ git clone https://github.com/SaranyaSekar0188/homework.git
+Cloning into 'homework'...
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 6 (delta 1), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (6/6), done.
+Checking connectivity... done.
+knd-ssekar-ml:homework2 ssekar$ ls
+homework
+knd-ssekar-ml:homework2 ssekar$ git remote -v
+$
+---------------------------------------------------------
+
+3)Run git fetch remotename (substituting your remote name for remotename).
+Did anything appear in your working directory? Why?
+
+Output:
+---------------------------------
+
+knd-ssekar-ml:homework ssekar$ git fetch origin
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 6 (delta 1), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (6/6), done.
+From https://github.com/SaranyaSekar0188/homework
+ * [new branch]      master     -> origin/master
+
+It goes out to the remote project and pulls down all the data that i donít have yet. After this, you should have references to all the branches from that remote.
+
+4)Update your local master branch with the remote one, and give the command you used to do so.
+
+Output:
+--------------------------------------
+
+knd-ssekar-ml:homework ssekar$ git merge origin/master
+knd-ssekar-ml:homework ssekar$ git pull origin master
+From https://github.com/SaranyaSekar0188/homework
+ * branch            master     -> FETCH_HEAD
+Already up-to-date.
+
+
+5)Your working directory should have been updated. You should check that. That means the master branch was updated on the remote. But it's possible that when we ran git fetch, we fetched other branches as well! How could we (i.e. what command could we use) find all the branches we may have gotten from the remote?
+
+Output:
+---------------------------------------
+knd-ssekar-ml:homework ssekar$ git branch -r 
+  origin/master
+----------------------------------------
+
+6)What is a bare repository? What makes it different from normal repositories? In what situations is it used?
+
+Repositories created with the git init command are called working directories. 
+In the top level folder of the repository you will find two things:
+A .git subfolder with all the git related revision history of your repo
+A working tree, or checked out copies of your project files.
+
+Repositories created with git init --bare are called bare repos. They are structured a bit differently from working directories. First of all, they contain no working or checked out copy of your source files and secondly, bare repos store git revision history of your repo in the root folder of your repository instead of in a .git subfolder. 
+
+Situations it is used:
+
+I use a working directory created with git init or git clone when I want to add, edit and delete files in myproject locally on my dev machine.
+When I am ready, I share my local changes with a git push to a bare repository myproject.git (usually on a remote server like github.com) so other developers can access my local changes.
+
+7)When would this be a good idea as opposed to simply doing git pull remotename branchname? 
+
+A git pull is what you would do to bring a local branch up-to-date with its remote version, while also updating your other remote-tracking branches.
+
+8)Briefly discuss remote-tracking branches and their relevance in your answer.
+
+Remote-tracking branches are references to the state of remote branches. Theyíre local references that you canít move; theyíre moved automatically for you whenever you do any network communication. Remote-tracking branches act as bookmarks to remind you where the branches in your remote repositories were the last time you connected to them.
+
+9) I didn't ask you to do this, but suppose I asked you to make a commit on the 'other' branch. If I wanted you to push this branch, what command would you use?
+
+Commands:
+Do git pull to fetches data and merges up-to-date
+Later do git push to push your changes/branch  
